@@ -79,13 +79,13 @@ namespace Ogre
         @param terrainWorldSize The world size of each terrain instance
         */
         TerrainGroup(SceneManager* sm, Terrain::Alignment align, uint16 terrainSize, 
-            Real terrainWorldSize);
+            Real terrainWorldSize, SceneNode* rootNode = nullptr);
         /** Alternate constructor.
 
             You can ONLY use this constructor if you subsequently call loadGroupDefinition
             or loadLegacyTerrain to populate the rest.
         */
-        TerrainGroup(SceneManager* sm);
+        TerrainGroup(SceneManager* sm, SceneNode* rootNode = nullptr);
         virtual ~TerrainGroup();
 
         /** Retrieve a shared structure which will provide the base settings for
@@ -528,6 +528,7 @@ namespace Ogre
     private:
         typedef std::map<TerrainSlot*, WorkQueue::RequestID> TerrainPrepareRequestMap;
         SceneManager *mSceneManager;
+        SceneNode* mRootNode;
         Terrain::Alignment mAlignment;
         uint16 mTerrainSize;
         Real mTerrainWorldSize;

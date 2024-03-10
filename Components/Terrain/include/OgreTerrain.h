@@ -266,7 +266,7 @@ namespace Ogre
         /** Constructor.
         @param sm The SceneManager to use.
         */
-        Terrain(SceneManager* sm);
+        Terrain(SceneManager* sm, SceneNode* rootNode = nullptr);
         virtual ~Terrain();
 
         static const uint32 TERRAIN_CHUNK_ID;

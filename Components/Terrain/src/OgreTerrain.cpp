@@ -133,7 +133,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     NameGenerator Terrain::msBlendTextureGenerator = NameGenerator("TerrBlend");
     //---------------------------------------------------------------------
-    Terrain::Terrain(SceneManager* sm)
+    Terrain::Terrain(SceneManager* sm, SceneNode* rootNode)
         : mSceneMgr(sm)
         , mResourceGroup(BLANKSTRING)
         , mIsLoaded(false)
@@ -192,7 +192,7 @@ namespace Ogre
         , mLodManager(0)
 
     {
-        mRootNode = sm->getRootSceneNode()->createChildSceneNode();
+        mRootNode = rootNode ? rootNode->createChildSceneNode() : sm->getRootSceneNode()->createChildSceneNode();
         sm->addListener(this);
 
         // generate a material name, it's important for the terrain material

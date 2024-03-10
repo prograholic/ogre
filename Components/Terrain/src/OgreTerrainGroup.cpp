@@ -42,8 +42,9 @@ namespace Ogre
 
     //---------------------------------------------------------------------
     TerrainGroup::TerrainGroup(SceneManager* sm, Terrain::Alignment align,
-        uint16 terrainSize, Real terrainWorldSize)
+        uint16 terrainSize, Real terrainWorldSize, SceneNode* rootNode)
         : mSceneManager(sm)
+        , mRootNode(rootNode)
         , mAlignment(align)
         , mTerrainSize(terrainSize)
         , mTerrainWorldSize(terrainWorldSize)
@@ -61,8 +62,9 @@ namespace Ogre
         mDefaultImportData.deleteInputData = true;
     }
     //---------------------------------------------------------------------
-    TerrainGroup::TerrainGroup(SceneManager* sm)
+    TerrainGroup::TerrainGroup(SceneManager* sm, SceneNode* rootNode)
         : mSceneManager(sm)
+        , mRootNode(rootNode)
         , mAlignment(Terrain::ALIGN_X_Z)
         , mTerrainSize(0)
         , mTerrainWorldSize(0)
@@ -343,7 +345,7 @@ namespace Ogre
             (!slot->def.filename.empty() || slot->def.importData))
         {
             // Allocate in main thread so no race conditions
-            slot->instance = OGRE_NEW Terrain(mSceneManager);
+            slot->instance = OGRE_NEW Terrain(mSceneManager, mRootNode);
             slot->instance->setResourceGroup(mResourceGroup);
             // Use shared pool of buffers
             slot->instance->setGpuBufferAllocator(&mBufferAllocator);
